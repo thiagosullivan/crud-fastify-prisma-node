@@ -5,11 +5,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiagosullivan/crud-fastify-prisma-node.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thiagosullivan/crud-fastify-prisma-node/issues"
+  },
+  "homepage": "https://github.com/thiagosullivan/crud-fastify-prisma-node#readme",
   "description": "",
   "devDependencies": {
+    "@types/node": "^24.9.2",
     "prisma": "^6.18.0",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
