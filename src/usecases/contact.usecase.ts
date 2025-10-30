@@ -63,6 +63,12 @@ class ContactUseCase {
 
     return data;
   }
+
+  async delete(id: string) {
+    const data = await this.contactRepository.delete(id);
+
+    return data;
+  }
 }
 
 export { ContactUseCase };
