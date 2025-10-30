@@ -6,6 +6,7 @@ import { authMiddleware } from "../middleware/auth.middleware.js";
 export async function contactsRoutes(fastify: FastifyInstance) {
   const contactUseCase = new ContactUseCase();
   fastify.addHook("preHandler", authMiddleware);
+
   fastify.post<{ Body: ContactCreate }>("/", async (req, reply) => {
     const { name, email, phone } = req.body;
     const emailUser = req.headers["email"];
@@ -16,6 +17,15 @@ export async function contactsRoutes(fastify: FastifyInstance) {
         phone,
         userEmail: emailUser,
       });
+      return reply.send(data);
+    } catch (error) {
+      reply.send(error);
+    }
+  });
+  fastify.get("/", async (req, reply) => {
+    const emailUser = req.headers["email"];
+    try {
+      const data = await contactUseCase.listAllContacts(emailUser);
       return reply.send(data);
     } catch (error) {
       reply.send(error);

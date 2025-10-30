@@ -33,6 +33,15 @@ class ContactsRepositoryPrisma implements ContactRepository {
         ],
       },
     });
+    return result || null;
+  }
+  async findAllContacts(userId: string): Promise<Contact[]> {
+    const result = await prisma.contacts.findMany({
+      where: {
+        userId,
+      },
+    });
+
     return result;
   }
 }
