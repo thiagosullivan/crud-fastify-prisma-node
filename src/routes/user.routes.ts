@@ -4,10 +4,10 @@ import type { UserCreate } from "../interfaces/user.interface.js";
 
 export async function userRoutes(fastify: FastifyInstance) {
   const userUseCase = new UserUseCase();
-  fastify.post<{ Body: UserCreate }>("/", (req, reply) => {
+  fastify.post<{ Body: UserCreate }>("/", async (req, reply) => {
     const { name, email } = req.body;
     try {
-      const data = userUseCase.create({
+      const data = await userUseCase.create({
         name,
         email,
       });
