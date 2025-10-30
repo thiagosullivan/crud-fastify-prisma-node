@@ -1,6 +1,9 @@
 import type { FastifyInstance } from "fastify";
 import { ContactUseCase } from "../usecases/contact.usecase.js";
-import type { ContactCreate } from "../interfaces/contacts.interface.js";
+import type {
+  Contact,
+  ContactCreate,
+} from "../interfaces/contacts.interface.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 
 export async function contactsRoutes(fastify: FastifyInstance) {
@@ -31,4 +34,22 @@ export async function contactsRoutes(fastify: FastifyInstance) {
       reply.send(error);
     }
   });
+  fastify.put<{ Body: Contact; Params: { id: string } }>(
+    "/:id",
+    async (req, reply) => {
+      const { id } = req.params;
+      const { name, email, phone } = req.body;
+      try {
+        const data = await contactUseCase.updateContact({
+          id,
+          name,
+          email,
+          phone,
+        });
+        return reply.send(data);
+      } catch (error) {
+        reply.send(error);
+      }
+    }
+  );
 }

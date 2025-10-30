@@ -1,4 +1,5 @@
 import type {
+  Contact,
   ContactCreate,
   ContactRepository,
 } from "../interfaces/contacts.interface.js";
@@ -50,6 +51,17 @@ class ContactUseCase {
     const contacts = await this.contactRepository.findAllContacts(user.id);
 
     return contacts;
+  }
+
+  async updateContact({ id, name, email, phone }: Contact) {
+    const data = await this.contactRepository.updateContact({
+      id,
+      name,
+      email,
+      phone,
+    });
+
+    return data;
   }
 }
 
